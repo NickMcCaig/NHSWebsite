@@ -8,7 +8,7 @@ This is your site JavaScript code - you can add interactivity and carry out proc
 console.log("Hello!");
 // api url
 const api_url = 
-      "https://api.nhs.uk/conditions/acne";
+      "https://api.nhs.uk/conditions/allergies";
   
 // Defining async function
 async function getapi(url) {
@@ -56,8 +56,9 @@ async function renderUsers(data) {
 
         html += htmlSegment;
     });
-
     let container = document.querySelector('.container');
+    let conditiontitle = document.querySelector('.conditionTitle');
+    conditiontitle.innerHTML = data.about.name
     container.innerHTML = html;
 }
 
