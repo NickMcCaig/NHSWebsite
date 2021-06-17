@@ -46,12 +46,37 @@ async function renderUsers(data) {
         if(segmentName ){
             segments.title = "Overview";
         }
-        let htmlSegment = `<div class="card bg-light text-dark">
-                            <h2>${segmentName}</h2>
-                            <div class="card-body text-center">
-                            ${segments.description}
-                            
+        let htmlSegment = ` <div class="container">
+                            <div class="card">
+                                <h4 class="card-title">${segmentName}</h4>
+                                <p>
+                                ${segments.description}
+                                </p>
+                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${segments.name}">More Info</button>
                             </div>
+                            <div class="modal" id="card${segments.name}">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                              <div class="modal-content">
+                              
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h1 class="modal-title">${segmentName}</h1>
+                                  <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+                                
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                ${segments.text}
+                                </div>
+                                
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div>
                         </div>`;
 
         html += htmlSegment;
