@@ -1,15 +1,16 @@
-/*
-This is your site JavaScript code - you can add interactivity and carry out processing
-- Initially the JS writes a message to the console, and rotates a button you can add from the README
-*/
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
 console.log("Hello!");
 // api url
 const api_url = 
-      "https://api.nhs.uk/conditions/allergies";
-  
+      "https://api.nhs.uk/conditions/";
+function getTextBox(){
+    return document.getElementById("searchBox").value
+}
+function getURL(){
+    console.log(getTextBox());
+    return api_url + getTextBox();
+}
+
 // Defining async function
 async function getapi(url) {
     
@@ -26,38 +27,40 @@ async function getapi(url) {
     if (response) {
       console.log("DataLoaded")
         hideloader();
-        renderUsers(data)
+        renderCards(data)
     }
 }
 // Calling that async function
-getapi(api_url);
-  
-// Function to hide the loader
+//getapi(getURL());
 function hideloader() {
     document.getElementById('loading').style.display = 'none';
 }
-async function renderUsers(data) {
+async function renderCards(data) {
     let segments = data.hasPart;
     let html = '';
     console.log(segments);
-    segments.forEach(segments => {
-        let segmentName = segments.name;
+    segments.forEach(segment => {
+        let segmentName = segment.name;
         segmentName = segmentName.replace(/_/g, ' ');
         if(segmentName ){
-            segments.title = "Overview";
+            segment.title = "Overview";
         }
+        let noBtn = false;
+        if(segment.text == ""){
+            noBtn = true;
+        }
+        if(!noBtn){ //Sections with infomation
         let htmlSegment = ` <div class="container">
                             <div class="card">
                                 <h4 class="card-title">${segmentName}</h4>
                                 <p>
-                                ${segments.description}
+                                ${segment.description}
                                 </p>
-                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${segments.name}">More Info</button>
+                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${segment.name}" id="btn${segments.name}">More Info</button>
                             </div>
-                            <div class="modal" id="card${segments.name}">
-                            <div class="modal-dialog modal-dialog-scrollable">
+                            <div class="modal" id="card${segment.name}">
+                            <div class="modal-dialog modal-lg">
                               <div class="modal-content">
-                              
                                 <!-- Modal Header -->
                                 <div class="modal-header">
                                   <h1 class="modal-title">${segmentName}</h1>
@@ -66,20 +69,29 @@ async function renderUsers(data) {
                                 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                ${segments.text}
+                                ${segment.text}
                                 </div>
                                 
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                 </div>
-                                
                               </div>
                             </div>
                           </div>
                         </div>`;
-
-        html += htmlSegment;
+                        html += htmlSegment;
+        }else{ // Sections without additional infomation
+            let htmlSegment = ` <div class="container">
+            <div class="card">
+                <h4 class="card-title">${segmentName}</h4>
+                <p>
+                ${segment.description}
+                </p>
+            </div>
+        </div>`;
+        html += htmlSegment; 
+        }
     });
     let container = document.querySelector('.container');
     let conditiontitle = document.querySelector('.conditionTitle');
