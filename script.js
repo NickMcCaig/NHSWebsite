@@ -43,12 +43,10 @@ async function renderCards(data) {
     let segments = data.hasPart;
     let html = '';
     console.log(segments);
+    if(!segments.length == 0){ // Checks if content has been modulerized 
     segments.forEach(segment => {
         let segmentName = segment.name;
         segmentName = segmentName.replace(/_/g, ' ');
-        if(segmentName ){
-            segment.title = "Overview";
-        }
         if(!segment.text == ""){ //Sections with infomation
         let htmlSegment = ` <div class="container">
                             <div class="card">
@@ -97,6 +95,9 @@ async function renderCards(data) {
         html += htmlSegment; 
         }
     });
+  }else{
+    html = '<h4>This content has not been modulerized</h4>'
+  }
     let container = document.querySelector('.container');
     let conditiontitle = document.querySelector('.conditionTitle');
     conditiontitle.innerHTML = data.about.name
