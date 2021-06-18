@@ -6,10 +6,16 @@ const api_url =
 function getTextBox(){
     return document.getElementById("searchBox").value
 }
+function checkTextBox(){
+  var textValue = getTextBox(); 
+  textValue = textValue.replace(/\s+/g, '-').toLowerCase();
+  return textValue;
+}
 function getURL(){
     console.log(getTextBox());
-    return api_url + getTextBox();
+    return api_url + checkTextBox();
 }
+
 // Defining async function
 async function getapi(url) {
     
@@ -29,8 +35,7 @@ async function getapi(url) {
         renderCards(data)
     }
 }
-// Calling that async function
-//getapi(getURL());
+
 function hideloader() {
     document.getElementById('loading').style.display = 'none';
 }
@@ -44,11 +49,7 @@ async function renderCards(data) {
         if(segmentName ){
             segment.title = "Overview";
         }
-        let noBtn = false;
-        if(segment.text == ""){
-            noBtn = true;
-        }
-        if(!noBtn){ //Sections with infomation
+        if(!segment.text == ""){ //Sections with infomation
         let htmlSegment = ` <div class="container">
                             <div class="card">
                                 <div class="card-body">
