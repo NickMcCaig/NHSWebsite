@@ -30,11 +30,11 @@ async function getapi(url) {
     var data = await response.json();
     console.log(data['@type']);
     if (response) {
-      if(response.status == 200){
+      if(response.status == 200){ //if the responce is a valid request
       console.log("DataLoaded")
         hideloader();
         renderCards(data)
-    }else{
+    }else{ //invalid request
       let container = document.querySelector('.container');
       container.innerHTML = '<p>Your search was invalid!<p>';
       let conditiontitle = document.querySelector('.conditionTitle');
@@ -48,38 +48,38 @@ function hideloader() {
     document.getElementById('loading').style.display = 'none';
 }
 async function renderCards(data) {
-    let segments = data.hasPart;
+    let modules = data.hasPart;
     let html = '';
     if(data['@type'] == "MedicalWebPage"){
-    console.log(segments);
-    if(!segments.length == 0){ // Checks if content has been modulerized 
-    segments.forEach(segment => {
-        let segmentName = segment.name;
-        segmentName = segmentName.replace(/_/g, ' ');
-        segmentName = capitalizeFirstLetter(segmentName);
-        if(!segment.text == ""){ //Sections with infomation
-        let htmlSegment = ` <div class="container">
+    console.log(modules);
+    if(!modules.length == 0){ // Checks if content has been modulerized 
+    modules.forEach(module => {
+        let moduleName = module.name;
+        moduleName = moduleName.replace(/_/g, ' ');
+        moduleName = capitalizeFirstLetter(moduleName);
+        if(!module.text == ""){ //Sections with infomation
+        let htmlmodule = ` <div class="container">
                             <div class="card">
                                 <div class="card-body">
-                                <h4 class="card-title">${segmentName}</h4>
+                                <h4 class="card-title">${moduleName}</h4>
                                 <p>
-                                ${segment.description}
+                                ${module.description}
                                 </p>
-                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${segment.name}" id="btn${segments.name}">More Info</button>
+                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${module.name}" id="btn${modules.name}">More Info</button>
                             </div>
                             </div>
-                            <div class="modal" id="card${segment.name}">
+                            <div class="modal" id="card${module.name}">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                  <h1 class="modal-title">${segmentName}</h1>
+                                  <h1 class="modal-title">${moduleName}</h1>
                                   <button type="button" class="close" data-dismiss="modal">×</button>
                                 </div>
                                 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                ${segment.text}
+                                ${module.text}
                                 </div>
                                 
                                 <!-- Modal footer -->
@@ -90,19 +90,19 @@ async function renderCards(data) {
                             </div>
                           </div>
                         </div>`;
-                        html += htmlSegment;
+                        html += htmlmodule;
         }else{ // Sections without additional infomation
-            let htmlSegment = ` <div class="container">
+            let htmlmodule = ` <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">${segmentName}</h4>
+                    <h4 class="card-title">${moduleName}</h4>
                     <p>
-                    ${segment.description}
+                    ${module.description}
                     </p>
                     </div>
             </div>
         </div>`;
-        html += htmlSegment; 
+        html += htmlmodule; 
         }
     });
   }else{
@@ -120,5 +120,4 @@ async function renderCards(data) {
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
 getapi(getURL())
