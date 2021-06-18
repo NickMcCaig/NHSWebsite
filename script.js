@@ -10,7 +10,6 @@ function getURL(){
     console.log(getTextBox());
     return api_url + getTextBox();
 }
-
 // Defining async function
 async function getapi(url) {
     
@@ -52,11 +51,13 @@ async function renderCards(data) {
         if(!noBtn){ //Sections with infomation
         let htmlSegment = ` <div class="container">
                             <div class="card">
+                                <div class="card-body">
                                 <h4 class="card-title">${segmentName}</h4>
                                 <p>
                                 ${segment.description}
                                 </p>
                                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${segment.name}" id="btn${segments.name}">More Info</button>
+                            </div>
                             </div>
                             <div class="modal" id="card${segment.name}">
                             <div class="modal-dialog modal-lg">
@@ -84,10 +85,12 @@ async function renderCards(data) {
         }else{ // Sections without additional infomation
             let htmlSegment = ` <div class="container">
             <div class="card">
-                <h4 class="card-title">${segmentName}</h4>
-                <p>
-                ${segment.description}
-                </p>
+                <div class="card-body">
+                    <h4 class="card-title">${segmentName}</h4>
+                    <p>
+                    ${segment.description}
+                    </p>
+                    </div>
             </div>
         </div>`;
         html += htmlSegment; 
@@ -99,3 +102,4 @@ async function renderCards(data) {
     container.innerHTML = html;
 }
 
+getapi(getURL())
