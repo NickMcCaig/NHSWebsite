@@ -27,7 +27,7 @@ async function getapi(url) {
     
     // Storing data in form of JSON
     var data = await response.json();
-    console.log(data);
+    console.log(data['@type']);
     
     if (response) {
       console.log("DataLoaded")
@@ -42,6 +42,7 @@ function hideloader() {
 async function renderCards(data) {
     let segments = data.hasPart;
     let html = '';
+    if(data['@type'] == "MedicalWebPage"){
     console.log(segments);
     if(!segments.length == 0){ // Checks if content has been modulerized 
     segments.forEach(segment => {
@@ -98,6 +99,9 @@ async function renderCards(data) {
   }else{
     html = '<h4>This content has not been modulerized</h4>'
   }
+}else{
+  html = '<h4>Your search was invalid!</h4>'
+}
     let container = document.querySelector('.container');
     let conditiontitle = document.querySelector('.conditionTitle');
     conditiontitle.innerHTML = data.about.name
