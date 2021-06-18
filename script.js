@@ -106,6 +106,7 @@ async function renderCards(data) {
     let conditiontitle = document.querySelector('.conditionTitle');
     conditiontitle.innerHTML = data.about.name
     container.innerHTML = html;
+    $("img").addClass("img-thumbnail") // Adds bootstrap formatting to all images
 }
 
 getapi(getURL())
