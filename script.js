@@ -26,14 +26,22 @@ async function getapi(url) {
 });
     
     // Storing data in form of JSON
+    console.log(response.status);
     var data = await response.json();
     console.log(data['@type']);
-    
     if (response) {
+      if(response.status == 200){
       console.log("DataLoaded")
         hideloader();
         renderCards(data)
+    }else{
+      let container = document.querySelector('.container');
+      container.innerHTML = '<p>Your search was invalid!<p>';
+      let conditiontitle = document.querySelector('.conditionTitle');
+      conditiontitle.innerHTML = 'NHS A-Z';
     }
+  }
+  
 }
 
 function hideloader() {
