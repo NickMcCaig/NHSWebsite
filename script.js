@@ -56,6 +56,7 @@ async function renderCards(data) {
     segments.forEach(segment => {
         let segmentName = segment.name;
         segmentName = segmentName.replace(/_/g, ' ');
+        segmentName = capitalizeFirstLetter(segmentName);
         if(!segment.text == ""){ //Sections with infomation
         let htmlSegment = ` <div class="container">
                             <div class="card">
@@ -115,6 +116,9 @@ async function renderCards(data) {
     conditiontitle.innerHTML = data.about.name
     container.innerHTML = html;
     $("img").addClass("img-thumbnail") // Adds bootstrap formatting to all images
+}
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 getapi(getURL())
