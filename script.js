@@ -65,7 +65,7 @@ async function renderCards(data) {
                                 <p>
                                 ${module.description}
                                 </p>
-                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${module.name}" id="btn${modules.name}">More Info</button>
+                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#card${module.name}" id="btn${module.name}">More Info</button>
                             </div>
                             </div>
                             <div class="modal" id="card${module.name}">
