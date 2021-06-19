@@ -55,7 +55,7 @@ async function renderCards(data) {
         let htmlmodule = ` <div class="container">
                             <div class="card">
                                 <div class="card-body">
-                                <h4 class="card-title">${moduleName}</h4>
+                                <h1 class="card-title">${moduleName}</h1>
                                 <p>
                                 ${module.description}
                                 </p>
@@ -89,7 +89,7 @@ async function renderCards(data) {
             let htmlmodule = ` <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">${moduleName}</h4>
+                    <h1 class="card-title">${moduleName}</h1>
                     <p>
                     ${module.description}
                     </p>
