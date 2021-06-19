@@ -1,5 +1,4 @@
 
-console.log("Hello!");
 // api url
 const api_url = 
       "https://api.nhs.uk/conditions/";
@@ -12,7 +11,6 @@ function checkTextBox(){
   return textValue;
 }
 function getURL(){
-    console.log(getTextBox());
     return api_url + checkTextBox();
 }
 
@@ -26,12 +24,9 @@ async function getapi(url) {
 });
     
     // Storing data in form of JSON
-    console.log(response.status);
     var data = await response.json();
-    console.log(data['@type']);
     if (response) {
       if(response.status == 200){ //if the responce is a valid request
-      console.log("DataLoaded")
         hideloader();
         renderCards(data)
     }else{ //invalid request
@@ -51,7 +46,6 @@ async function renderCards(data) {
     let modules = data.hasPart;
     let html = '';
     if(data['@type'] == "MedicalWebPage"){
-    console.log(modules);
     if(!modules.length == 0){ // Checks if content has been modulerized 
     modules.forEach(module => {
         let moduleName = module.name;
