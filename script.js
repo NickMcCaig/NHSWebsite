@@ -27,7 +27,7 @@ async function getapi(url) {
     var data = await response.json();
     if (response) {
       if(response.status == 200){ //if the responce is a valid request
-        hideloader();
+        hideLoader();
         renderCards(data)
     }else{ //invalid request
       let container = document.querySelector('.container');
@@ -39,7 +39,7 @@ async function getapi(url) {
   
 }
 
-function hideloader() {
+function hideLoader() {
     document.getElementById('loading').style.display = 'none';
 }
 async function renderCards(data) {
@@ -107,6 +107,7 @@ async function renderCards(data) {
 }
     let container = document.querySelector('.container');
     let conditiontitle = document.querySelector('.conditionTitle');
+    document.getElementById('creditLink').href = data.author.url;
     conditiontitle.innerHTML = data.about.name
     container.innerHTML = html;
     $("img").addClass("img-thumbnail") // Adds bootstrap formatting to all images
@@ -114,4 +115,5 @@ async function renderCards(data) {
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
 getapi(getURL())
