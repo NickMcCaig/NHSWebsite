@@ -111,7 +111,7 @@ async function renderCards(data) {
     conditiontitle.innerHTML = data.about.name
     container.innerHTML = html;
     $("img").addClass("img-thumbnail") // Adds bootstrap formatting to all images
-    var links = container.getElementsByTagName("a");
+    var links = container.getElementsByTagName("a"); //Links in container have been deactivated
     for (let link of links) {
       link.removeAttribute("href");
     }
