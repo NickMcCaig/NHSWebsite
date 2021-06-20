@@ -15,7 +15,7 @@ function getURL(){
 }
 
 // Defining async function
-async function getapi(url) {
+async function getData(url) {
     
     // Storing response
     const response = await fetch(url, {
@@ -99,10 +99,10 @@ async function renderCards(data) {
         html += htmlmodule; 
         }
     });
-  }else{
+  }else{ //Displays error is content is not avalible in correct form yet
     html = '<h4>This content has not been modulerized</h4>'
   }
-}else{
+}else{ //Displays error is search did not return a medical webpage
   html = '<h4>Your search was invalid!</h4>'
 }
     let container = document.querySelector('.container');
@@ -111,9 +111,13 @@ async function renderCards(data) {
     conditiontitle.innerHTML = data.about.name
     container.innerHTML = html;
     $("img").addClass("img-thumbnail") // Adds bootstrap formatting to all images
+    var links = container.getElementsByTagName("a");
+    for (let link of links) {
+      link.removeAttribute("href");
+    }
 }
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-getapi(getURL())
+getData(getURL())
