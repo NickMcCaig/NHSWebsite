@@ -103,7 +103,7 @@ async function renderCards(data) {
     html = '<h4>This content has not been modulerized</h4>'
   }
 }else{ //Displays error is search did not return a medical webpage
-  html = '<h4>Your search was invalid!</h4>'
+  html = '<h4>Your search was not a medical webpage!</h4>'
 }
     let container = document.querySelector('.container');
     let conditiontitle = document.querySelector('.conditionTitle');
