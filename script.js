@@ -5,13 +5,13 @@ const api_url =
 function getTextBox(){
     return document.getElementById("searchBox").value
 }
-function checkTextBox(){
-  var textValue = getTextBox(); 
+function formatTextBox(textValue){
+  textValue = textValue.trim();
   textValue = textValue.replace(/\s+/g, '-').toLowerCase();
   return textValue;
 }
 function getURL(){
-    return api_url + checkTextBox();
+    return api_url + formatTextBox(getTextBox());
 }
 
 // Defining async function
